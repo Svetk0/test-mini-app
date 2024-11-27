@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import './App.css';
 
 const generateDeck = () => {
@@ -67,6 +67,18 @@ const gameReducer = (state, action) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
+  const [user, setUser] = useState('underfined');
+
+  useEffect(() => {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    setUser(tg.initDataUnsafe.user?.username || 'null');
+    const timer = setTimeout(() => {
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
 
   // Проверка на совпадение перевернутых карточек
   useEffect(() => {
@@ -99,6 +111,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <h3>Hello {user}</h3>
       <h1>Memory Game</h1>
       <div className="info">
         <p>Очки: {state.score}</p>
