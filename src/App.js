@@ -68,11 +68,12 @@ const gameReducer = (state, action) => {
 const App = () => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
   const [user, setUser] = useState('underfined');
-
+  const [dataTg, setDataTg] = useState('');
   useEffect(() => {
     const tg = window.Telegram.WebApp;
     tg.ready();
     console.log('tg', tg);
+    setDataTg(tg);
     setUser(tg.initDataUnsafe.user?.username || 'null');
     const timer = setTimeout(() => {
     }, 3000);
@@ -146,6 +147,12 @@ const App = () => {
           </div>
         </>
       )}
+      <div>
+        <h3> TG DATA</h3>
+        <div>tg.initData {dataTg.initData}</div>
+        {/* <div>tg.initDataUnsafe {dataTg.initDataUnsafe}</div> */}
+        <div>tg.headerColor {dataTg.headerColor}</div>
+      </div>
     </div>
   );
 };
