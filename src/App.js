@@ -72,6 +72,7 @@ const App = () => {
   useEffect(() => {
     const tg = window.Telegram.WebApp;
     tg.ready();
+    console.log('tg', tg);
     setUser(tg.initDataUnsafe.user?.username || 'null');
     const timer = setTimeout(() => {
     }, 3000);
